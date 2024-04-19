@@ -15,6 +15,8 @@
 using namespace std;
 
 
+
+
 class Edge {
 public:
 	int DestinationVertexId;
@@ -111,7 +113,13 @@ public:
 class Graph {
 
 public:
+	// список вершин
 	vector<Vertex> vertices;
+
+	// хранение пути
+	string pathStr;
+
+	int sp;
 
 	// все методы работы с графом будут тут
 	// добавить вершину
@@ -354,15 +362,16 @@ public:
 				}
 			}
 		}
+		sp = distance[toVertex];
 		cout << "Кратчайший путь  с " << fromVertex << " до " << toVertex << ": " << distance[toVertex] << endl;
 
-		printShortestPath(fromVertex, toVertex, distance);
+		printShortestPath(fromVertex, toVertex, distance, pathStr);
 		cout << endl;
 	}
 
 
 	// печатает кратчайший путь
-	void printShortestPath(int fromVertex, int toVertex, unordered_map<int, int>& distance) {
+	void printShortestPath(int fromVertex, int toVertex, unordered_map<int, int>& distance, string& pathStr) {
 
 		if (distance[toVertex] == 777) {
 			cout << "Путь не найден";
@@ -396,6 +405,13 @@ public:
 			}
 		}
 		reverse(path.begin(), path.end());
+
+		pathStr.clear();
+		for (int vertex : path) {
+			pathStr += to_string(vertex) + "--";
+		}
+		pathStr += to_string(toVertex);
+
 		for (int vertex : path) {
 			cout << vertex;
 			cout << "--";
@@ -403,7 +419,6 @@ public:
 		}
 		cout << toVertex;
 		cout << '\n';
-
 	}
 
 };

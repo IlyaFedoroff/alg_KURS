@@ -2,12 +2,52 @@
 
 using namespace std;
 
+
+int getId1() {
+	int id1;
+	cout << "Введите номер начальной вершины:\n";
+
+	while (!(std::cin >> id1)) {
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Ошибка: введите целое число.\n";
+		std::cout << "Введите номер начальной вершины:\n";
+	}
+	return id1;
+}
+int getId() {
+	int id;
+	cout << "Введите номер вершины:\n";
+
+	while (!(std::cin >> id)) {
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Ошибка: введите целое число.\n";
+		std::cout << "Введите номер вершины:\n";
+	}
+	return id;
+}
+
+int getId2() {
+	int id2;
+	cout << "Введите номер конечной вершины:\n";
+	while (!(std::cin >> id2)) {
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Ошибка: введите целое число.\n";
+		std::cout << "Введите номер конечной вершины:\n";
+	}
+	return id2;
+}
+
+
 int main()
 {
 	setlocale(LC_ALL, "rus");
 	Graph graph;
 	string file = "input.dot";
 	bool check1, check2, check3;
+	int id;
 	int id1;
 	int id2;
 	int t;
@@ -16,9 +56,10 @@ int main()
 	Vertex v1;
 	list<int> selectedRoads;
 	int roadType;
-
+	char answer;
 
 	char choice;
+
 	do {
 		system("cls");		// cleaning screen
 		printMenu();
@@ -28,9 +69,9 @@ int main()
 		case '1':
 			// Логика для добавления вершины
 			cout << "Вы выбрали: Добавить вершину" << endl;
-			cout << "Введите номер вершины:\n"; cin >> id1;
+			id = getId();
 
-			v1.setID(id1);
+			v1.setID(id);
 			graph.addVertex(v1);
 			PrintSuccess();
 			_getch();
@@ -38,9 +79,9 @@ int main()
 		case '3':
 			// Логика для удаления вершины
 			cout << "Вы выбрали: Удалить вершину" << endl;
-			cout << "Введите номер вершины:\n"; cin >> id1;
-			if (graph.checkIfVertexExistByID(id1)) {
-				graph.deleteVertexByID(id1);
+			id = getId();
+			if (graph.checkIfVertexExistByID(id)) {
+				graph.deleteVertexByID(id);
 				PrintSuccess();
 				_getch();
 			}
@@ -53,8 +94,8 @@ int main()
 		case '4':
 			// Логика для добавления ребра
 			cout << "Вы выбрали: Добавить ребро" << endl;
-			cout << "Введите номер начальной вершины:\n"; cin >> id1;
-			cout << "Введите номер конечной вершины:\n"; cin >> id2;
+			id1 = getId1();
+			id2 = getId2();
 			if (!graph.checkIfEdgeExistById(id1, id2) && graph.checkIfVertexExistByID(id1) && graph.checkIfVertexExistByID(id2)) {
 				cout << "Введите вес ребра:\n"; cin >> w;
 				cout << "Введите тип дороги:\n"
@@ -75,8 +116,8 @@ int main()
 		case '5':
 			// Логика для редактирования ребра
 			cout << "Вы выбрали: Редактировать ребро" << endl;
-			cout << "Введите номер начальной вершины:\n"; cin >> id1;
-			cout << "Введите номер конечной вершины:\n"; cin >> id2;
+			id1 = getId1();
+			id2 = getId2();
 			if (graph.checkIfEdgeExistById(id1, id2) && graph.checkIfVertexExistByID(id1) && graph.checkIfVertexExistByID(id2)) {
 				cout << "Введите НОВЫЙ вес ребра:\n"; cin >> w;
 				cout << "Введите НОВЫЙ тип дороги:\n"
@@ -98,8 +139,8 @@ int main()
 		case '6':
 			// Логика для удаления ребра
 			cout << "Вы выбрали: Удалить ребро" << endl;
-			cout << "Введите номер начальной вершины:\n"; cin >> id1;
-			cout << "Введите номер конечной вершины:\n"; cin >> id2;
+			id1 = getId1();
+			id2 = getId2();
 			if (graph.checkIfEdgeExistById(id1, id2)) {
 				graph.deleteEdgeByID(id1, id2);
 				PrintSuccess();
@@ -124,11 +165,10 @@ int main()
 		case 'd':
 			// Логика для нахождения кратчайшего пути
 			cout << "Вы выбрали: Кратчайший путь" << endl;
-			cout << "Введите номер начальной вершины:\n"; cin >> id1;
+			id1 = getId1();
 			if (graph.checkIfVertexExistByID(id1)) {
-				cout << "Введите номер конечной вершины:\n"; cin >> id2;
+				id2 = getId2();
 				if (graph.checkIfVertexExistByID(id2)) {
-
 					cout << "Введите приемлемые дороги:\n"
 						<< "1 - велодорожка\n"
 						<< "2 - гравий\n"
@@ -146,9 +186,25 @@ int main()
 						}
 						else {
 							std::cout << "Некорректный ввод. Попробуйте снова.\n";
+							break;
 						}
 					}
 					graph.dijkstra(id1, id2, selectedRoads);
+					if (graph.sp == 777) {
+						cout << "нет такого пути\n";
+					}
+					else {
+						cout << "Сохранить путь?\n"
+							<< "y - сохранить\n"
+							<< "n - отмена\n";
+						std::cin >> answer;
+						if (answer == 'y') {
+							cout << graph.pathStr << endl;
+						}
+						else {
+							cout << "Не сохраняем путь...\n";
+						}
+					}
 					PrintSuccess();
 					selectedRoads.clear();
 					_getch();
