@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 int getId1() {
 	int id1;
 	cout << "Введите номер начальной вершины:\n";
@@ -40,9 +39,7 @@ int getId2() {
 	return id2;
 }
 
-
-int main()
-{
+int main() {
 	setlocale(LC_ALL, "rus");
 	Graph graph;
 	string file = "input.dot";
@@ -57,9 +54,7 @@ int main()
 	list<int> selectedRoads;
 	int roadType;
 	char answer;
-
 	char choice;
-
 	do {
 		system("cls");		// cleaning screen
 		printMenu();

@@ -14,8 +14,6 @@
 #include <regex>
 using namespace std;
 
-
-
 class Edge {
 
 private:
@@ -24,61 +22,47 @@ private:
 	int traffic;
 
 public:
-	Edge() {
-
-	}
+	Edge() {}
 	Edge(int destVID, int w, int t) {
 		DestinationVertexId = destVID;
 		weight = w;
 		traffic = t;
 	}
-
 	int getDestinationVertexId() {
 		return DestinationVertexId;
 	}
-
 	int getWeight() {
 		return weight;
 	}
-
 	void setWeight(int w) {
 		weight = w;
 	}
-
 	int getTraffic() {
 		return traffic;
 	}
-
 	void setTraffic(int t) {
 		traffic = t;
 	}
 };
 
-
 class Vertex {
 
 private:
 	int id;
-	
-
 public:
 	list<Edge> edgeList;
 	Vertex() {
 		id = 0;
 	}
-
 	Vertex(int id) {
 		this->id = id;
 	}
-
 	int getID() {
 		return id;
 	}
-
 	void setID(int id) {
 		this->id = id;
 	}
-
 	list<Edge> getEdgeList() {
 		return edgeList;
 	}
@@ -89,13 +73,10 @@ class Graph {
 public:
 	// список вершин
 	vector<Vertex> vertices;
-
 	// хранение пути
 	string pathStr;
-
 	int sp;
 
-	// все методы работы с графом будут тут
 	// добавить вершину
 	void addVertex(Vertex newVertex) {
 		if (checkIfVertexExistByID(newVertex.getID())) {
@@ -279,9 +260,6 @@ public:
 		}
 		file << "}\n";
 	}
-
-	// алгоритмы
-	// Очередь с приоритетами для получения ребра с минимальным весом
 
 	void dijkstra(int fromVertex, int toVertex, list<int> accept_roads) {
 
