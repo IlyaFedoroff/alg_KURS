@@ -1,5 +1,5 @@
 ﻿  alg_KURS.cpp
-C:\Users\ritfo\source\repos\imTired\alg_KURS\Graph.h(387,7): warning C4101: tempDist: неиспользованная локальная переменная
+C:\Users\ritfo\source\repos\imTired\alg_KURS\Graph.h(355,7): warning C4101: tempDist: неиспользованная локальная переменная
 C:\Users\ritfo\source\repos\imTired\alg_KURS\alg_KURS.cpp(49,15): warning C4101: check2: неиспользованная локальная переменная
 C:\Users\ritfo\source\repos\imTired\alg_KURS\alg_KURS.cpp(49,7): warning C4101: check1: неиспользованная локальная переменная
 C:\Users\ritfo\source\repos\imTired\alg_KURS\alg_KURS.cpp(49,23): warning C4101: check3: неиспользованная локальная переменная

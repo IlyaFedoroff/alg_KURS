@@ -16,13 +16,14 @@ using namespace std;
 
 
 
-
 class Edge {
-public:
+
+private:
 	int DestinationVertexId;
 	int weight;
 	int traffic;
 
+public:
 	Edge() {
 
 	}
@@ -30,16 +31,6 @@ public:
 		DestinationVertexId = destVID;
 		weight = w;
 		traffic = t;
-	}
-
-	void setEdgeValues(int destVID, int w, int t) {
-		DestinationVertexId = destVID;
-		weight = w;
-		traffic = t;
-	}
-
-	void setDestinationVertexId(int destVID) {
-		DestinationVertexId = destVID;
 	}
 
 	int getDestinationVertexId() {
@@ -64,14 +55,14 @@ public:
 };
 
 
-
 class Vertex {
-public:
 
+private:
 	int id;
+	
+
+public:
 	list<Edge> edgeList;
-
-
 	Vertex() {
 		id = 0;
 	}
@@ -90,23 +81,6 @@ public:
 
 	list<Edge> getEdgeList() {
 		return edgeList;
-	}
-
-	void printEdgeList() {
-		cout << " [";
-		for (auto it = edgeList.begin(); it != edgeList.end(); it++) {
-			cout << it->getDestinationVertexId() << " (" << it->getWeight() << ", " << it->getTraffic() << ") --> ";
-		}
-		cout << "]\n";
-	}
-
-	void printToFileEdgeList(ofstream file) {
-
-		cout << " [";
-		for (auto it = edgeList.begin(); it != edgeList.end(); it++) {
-			file << "  " << it->getDestinationVertexId() << " -- " << it->getDestinationVertexId() << " [label=\"" << it->getWeight() << ", " << it->getTraffic() << "\"];\n";
-		}
-		cout << "]\n";
 	}
 };
 
@@ -182,15 +156,9 @@ public:
 		}
 		cout << "Ребро между вершинами " << getVertexByID(fromVertex).getID() << " и " << getVertexByID(toVertex).getID() << " добавлено.\n";
 	}
-	// напечатать граф
-	void printGraph() {
-		Vertex temp;
-		for (int i = 0; i < vertices.size(); i++) {
-			temp = vertices.at(i);
-			cout << temp.getID() << " --> ";
-			temp.printEdgeList();
-		}
-	}
+
+
+
 	// удалить ребро
 	void deleteEdgeByID(int fromVertex, int toVertex) {
 		//if (checkIfEdgeExistById(fromVertex, toVertex)) {
